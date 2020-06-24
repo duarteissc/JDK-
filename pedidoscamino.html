@@ -643,16 +643,15 @@
             const htmluser = ` 
             <div class="card">
               <div class="card-header text-left">
-              <p class="card-text"><i style="color:green " class="fa fa-circle" aria-hidden="true"></i> Activo</p>
+              <p class="card-text" style="font-weight: bold;">Usuario</p>
             </div>
-            <div class="card-body">
-              <h5 class="card-title">${ docuser.data().nombre }</h5>
-              <p class="card-text">Correo: ${ docuser.data().correo}</p>
-              <p class="hint-text">Telefono: Teléfono: ${ docuser.data().telefono }</p>
-              <p class="hint-text">Dirección: ${ docuser.data().direccion }</p> 
+            <div class="card-body" style="background-color: #FDF2E9;">
+              <h4 class="card-title" style="text-decoration-line: underline; text-align: center;">${ docuser.data().nombre + ' ' + docuser.data().apellido}</h4>
+              <p class="card-text" style="font-weight: bold;">Correo: ${ docuser.data().correo}</p>
+              <p class="hint-text" style="font-weight: bold;">Telefono:${ docuser.data().telefono }</p>
+              <p class="hint-text" style="font-weight: bold;">Dirección: ${ docuser.data().direccion }</p> 
             </div>
-            <div class="card-footer text-muted">
-              Inicio de sesion: ${ docuser.data().dateInOut }
+            <div class="card-footer text-muted"> 
             </div>
           </div>
             `; 
@@ -672,13 +671,20 @@
           title: docuser.data().correo,
           icon: iconouser
           }); 
+          
           markeruser.addListener('click', function() {
             infowindowuser.open(map, markeruser);
           });   
         });       
     }
-    function ver(uidrepartidor){ 
+      var compraseleccionada=null;
+    function ver(uidrepartidor,idcompra){  
             if(uidrepartidor!=""){
+              compraseleccionada=null;
+              compraseleccionada=idcompra;
+                if(markerrepartidor!= undefined){ 
+                    markerrepartidor.setMap(null);
+                }
                 var iconrepartidor = {
                 url: "img/pin/repartidor.png", // url imagen
                         scaledSize: new google.maps.Size(50, 50)
@@ -688,21 +694,55 @@
                 position: new google.maps.LatLng(0,0),
                 title: "Repartidor",
                 icon: iconrepartidor
-                }); 
-                markerrepartidor.addListener('click', function() {
-                    //infowindowrepartidor.open(map, markerrepartidor);
-                });
+                });  
                 db.collection("cuentasusuarios").doc(uidrepartidor).onSnapshot(function(repartidor) {
-                    console.log(repartidor.data());
+                    console.log(repartidor.data()); 
+                    informacionrepartidor =` 
+                    <div class="card">
+                    <div class="card-header text-left">
+                    <p class="card-text" style="font-weight: bold;">Repartidor</p>
+                    </div>
+                    <div class="card-body" style="background-color: #FDF2E9;">
+                    <h4 class="card-title" style="text-decoration-line: underline; text-align: center;">${ repartidor.data().nombre }</h4>
+                    <p class="card-text" style="font-weight: bold;">Correo: ${ repartidor.data().correo}</p>
+                    <p class="hint-text" style="font-weight: bold;">Telefono:${ repartidor.data().telefono }</p>
+                    <p class="hint-text" style="font-weight: bold;">Dirección: ${ repartidor.data().direccion }</p> 
+                    </div>
+                    <div class="card-footer text-muted"> 
+                    </div>
+                    </div>
+                    `; 
+                    var infowindowrepartidor = new google.maps.InfoWindow({
+                                        content: informacionrepartidor
+                    });
+                    markerrepartidor.addListener('click', function() {
+                    infowindowrepartidor.open(map, markerrepartidor);
+                    });
                     markerrepartidor.setPosition( new google.maps.LatLng(repartidor.data().coordenadas.Latitud,repartidor.data().coordenadas.Longitud));
                     map.panTo( new google.maps.LatLng(repartidor.data().coordenadas.Latitud,repartidor.data().coordenadas.Longitud));
                 });
             }
             else{
-                floatingMessage("Y el repartidor?","Este pedido aun no tiene repartidor, no se preocupe en cualquier segundo tendra un repartidor para llevar su pedido!","error");
+                floatingMessage("¿Y el repartidor?","Este pedido aún no tiene repartidor, ¡no se preocupe en cualquier segundo tendrá un repartidor para llevar su pedido!","error");
             }
             
         }
+        $(document).ready(function() {   
+    db.collection("compras").where("uidusuario", "==", uid).where("estado", "==",2).onSnapshot(function(querySnapshot) {  
+        querySnapshot.forEach(function(doc) {  
+          if(compraseleccionada!=null){
+            if(doc.id===compraseleccionada){
+              if(markerrepartidor!= undefined){ 
+                    markerrepartidor.setMap(null);
+                }
+              compraseleccionada=null;
+              floatingMessage("Tu pedido fue entregado","Para mas detalles revisa tus pedidos entregados","success");
+            }
+          }
+        }); 
+    });
+  }); 
+         
  </script>
   <script src="js/service/Usuario/app/pedidoscamino.js"></script>
  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADjOfdGIg-7JiqjoTstMN9el4g-nLhxxA&libraries=geometry&callback=iniciaMapa" async defer></script>

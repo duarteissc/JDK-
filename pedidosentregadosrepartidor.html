@@ -2,33 +2,38 @@
 <html>
 
 <head>
-    <!--Favicon-->
-    <link rel="icono de acceso directo" href="img/icon-web/PigmentoFav.png" type="image / x-icon">
-    <link rel="icon" href="img/icon-web/PigmentoFav.png" type="image / x-icon">
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Pigmento | Perfil</title>
+    <!--Favicon-->
+    <link rel="icono de acceso directo" href="img/icon-web/PigmentoFav.png" type="image / x-icon">
+    <link rel="icon" href="img/icon-web/PigmentoFav.png" type="image / x-icon">
+    <title>Pigmento | Pedidos Entregados</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <!-- Toastr style -->
+    <link href="css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <!-- FooTable -->
+    <link href="css/plugins/footable/footable.core.css" rel="stylesheet">
+
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-     <!-- Toastr style -->
- <link href="css/plugins/toastr/toastr.min.css" rel="stylesheet">
+
+
 
 </head>
+
 <body>
+
     <div id="wrapper">
+
         <nav class="navbar-default navbar-static-side" role="navigation">
             <div class="sidebar-collapse">
                 <ul class="nav metismenu" id="side-menu">
                     <li class="nav-header">
                         <div class="dropdown profile-element">
-                            <img alt="image" class="rounded-circle" style="height: 50px; width: 50px;"
-                                src="img/profile_small.jpg" />
-
+                            <img alt="image" class="rounded-circle" src="img/profile_small.jpg" />
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="block m-t-xs font-bold" id="username"></span>
                                 <span class="text-muted text-xs block">Opciones <b class="caret"></b></span>
@@ -42,13 +47,32 @@
                         <div class="logo-element">
                             <img style="width: 25px; height: 25px;" src="img/icon-web/PigmentoFav.png">
                         </div>
+                    </li>
+                    <li class="active">
+                        <a href="javascript:void(0)"><i class="fa fa-search"></i> <span class="nav-label">Repartidor</span>
+                            <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li class="active"><a href="homeRepartidor.html">Principal</a></li> 
+                        </ul>
                     </li> 
+                    <li>
+                        <a href="#"><i class="fa fa-shopping-cart"></i> <span class="nav-label">Mis pedidos</span><span
+                                class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="homeRepartidor.html">Nuevos</a></li> 
+                            <li><a href="pedidosentregadosrepartidor.html">Entregados</a></li> 
+                        </ul>
+                    </li> 
+                    <li class="landing_link">
+                        <a href="javascript:void(0)"><i class="fa fa-comments"></i> <span class="nav-label">Chat</span>
+                            <span class="label label-warning float-right">Proximamente</span></a>
+                    </li>
                 </ul>
 
             </div>
         </nav>
 
-        <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div id="page-wrapper" class="gray-bg">
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                     <div class="navbar-header">
@@ -62,14 +86,14 @@
                         </form>
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
-                        <li>
+                        <li style="padding: 20px">
                             <span class="m-r-sm text-muted welcome-message">Bienvenido a Pigmento.</span>
                         </li>
                         <li class="dropdown">
                             <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                                 <i class="fa fa-envelope"></i> <span class="label label-warning">16</span>
                             </a>
-                            <ul class="dropdown-menu dropdown-messages">
+                            <ul class="dropdown-menu dropdown-messages dropdown-menu-right">
                                 <li>
                                     <div class="dropdown-messages-box">
                                         <a class="dropdown-item float-left" href="profile.html">
@@ -181,48 +205,62 @@
             <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-10">
                     <h2 id="welcometext"></h2>
-
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="homeUsuario.html">Principal</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a>Mis pedidos</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            <strong>Entregados</strong>
+                        </li>
+                    </ol>
                 </div>
                 <div class="col-lg-2">
 
                 </div>
             </div>
-            <div class="wrapper wrapper-content">
-                <div class="row animated fadeInRight">
-                    <div class="col-md-4">
-                        <div class="ibox " id="perfildatosid">
-                            
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="ibox ">
-                            <div class="ibox-title">
-                                <h5>Actualizar datos personales</h5>
-                                <div class="ibox-tools">
-                                    <a class="collapse-link">
-                                        <i class="fa fa-chevron-up"></i>
-                                    </a>
-                                </div>
-                            </div>
+
+            <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox">
                             <div class="ibox-content">
 
-                                <div id="perfildatosidmodificar">
-                                    
+                                <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
+                                    <thead>
+                                        <tr>
 
-                                </div>
+                                            <th data-toggle="true">Producto</th>
+                                            <th data-hide="phone">Restaurante</th>
+                                            <th data-hide="phone">Descripcion</th>
+                                            <th data-hide="phone">Precio</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody id="listapedidospreparacion">
+
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="6">
+                                                <!--<ul class="pagination float-right"></ul>-->
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
 
                             </div>
                         </div>
-
                     </div>
                 </div>
+
+
             </div>
             <div class="footer">
-                <div class="float-right">
-                    10GB of <strong>250GB</strong> Free.
-                </div>
-                <div>
-                    <strong>Copyright</strong> Example Company &copy; 2014-2018
+                <div style="text-align: center;">
+                    <strong>Copyright</strong> Pigmento &copy; 2020
                 </div>
             </div>
 
@@ -238,49 +276,33 @@
     <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-    <!-- Flot -->
-    <script src="js/plugins/flot/jquery.flot.js"></script>
-    <script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-    <script src="js/plugins/flot/jquery.flot.spline.js"></script>
-    <script src="js/plugins/flot/jquery.flot.resize.js"></script>
-    <script src="js/plugins/flot/jquery.flot.pie.js"></script>
-
     <!-- Custom and plugin javascript -->
     <script src="js/inspinia.js"></script>
     <script src="js/plugins/pace/pace.min.js"></script>
 
-    <!-- Peity -->
-    <script src="js/plugins/peity/jquery.peity.min.js"></script>
+    <!-- FooTable -->
+    <script src="js/plugins/footable/footable.all.min.js"></script>
 
-    <!-- Peity -->
-    <script src="js/demo/peity-demo.js"></script>
+    <!-- Page-Level Scripts -->
+    <script>
+        $(document).ready(function () {
 
-    <!-- jQuery UI -->
-    <script src="js/plugins/jquery-ui/jquery-ui.min.js"></script>
+            $('.footable').footable();
 
-    <!-- GITTER -->
-    <script src="js/plugins/gritter/jquery.gritter.min.js"></script>
+        });
 
-    <!-- Sparkline -->
-    <script src="js/plugins/sparkline/jquery.sparkline.min.js"></script>
-
-    <!-- Sparkline demo data  -->
-    <script src="js/demo/sparkline-demo.js"></script>
-
-    <!-- ChartJS-->
-    <script src="js/plugins/chartJs/Chart.min.js"></script>
-
+    </script>
     <!-- Toastr -->
     <script src="js/plugins/toastr/toastr.min.js"></script>
-
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-firestore.js"></script> 
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-firestore.js"></script>
+
     <script src="js/service/bd.js"></script>
-    <script src="js/service/floatingMessage.js"></script> 
-    <script src="js/service/perfil.js"></script> 
+    <script src="js/service/floatingMessage.js"></script>
+    <script src="js/service/Socio_Repartidor/app/pedidosentregados.js"></script>
 </body>
 
 </html>
